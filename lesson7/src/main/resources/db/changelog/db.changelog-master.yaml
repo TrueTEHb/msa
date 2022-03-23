@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-lesson5.yaml
+  - changeSet:
+      id: 1_create_table
+      author: pkuzmin
+      changes:
+        - createTable:
+            tableName: greetings
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: content
+                  type: varchar(50)
+                  constraints:
+                    unique: false
+                    nullable: false
+
+  - changeSet:
+      id: 2_insert_values
+      author: pkuzmin
+      comment: "Create new content"
+      changes:
+        - insert:
+            tableName: greetings
+            columns:
+              - column:
+                  name: content
+                  value: "First message"
+        - insert:
+            tableName: greetings
+            columns:
+              - column:
+                  name: content
+                  value: "Second message"
