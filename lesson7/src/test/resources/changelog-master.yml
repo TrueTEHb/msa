@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1_create_test_table
+      author: pkuzmin
+      changes:
+        - createTable:
+            tableName: greetings
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: content
+                  type: varchar(50)
+                  constraints:
+                    unique: false
+                    nullable: false
+
+  - changeSet:
+      id: 2_insert_test_values
+      author: pkuzmin
+      comment: "Create new test content"
+      changes:
+        - insert:
+            tableName: greetings
+            columns:
+              - column:
+                  name: content
+                  value: "First test message"
+        - insert:
+            tableName: greetings
+            columns:
+              - column:
+                  name: content
+                  value: "Second test message"

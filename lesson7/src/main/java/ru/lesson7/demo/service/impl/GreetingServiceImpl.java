@@ -26,7 +26,7 @@ public class GreetingServiceImpl implements GreetingService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(propagation = Propagation.REQUIRED)
     public Greeting findById(Long id) {
         return contentRepository.findById(id).orElseThrow(NotFoundException::new);
     }
