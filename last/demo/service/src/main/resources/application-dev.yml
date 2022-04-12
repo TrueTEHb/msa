@@ -1,0 +1,116 @@
+server:
+  port: 7081
+
+mdp.discovery:
+  discoveryClientName: :disable
+
+security: 
+  enabled: false
+  oauth2:
+    client:
+      clientId:
+      clientSecret:
+      scope:
+      accessTokenUri:
+      userAuthorizationUri:
+    resource:
+      jwt:
+        key-uri:
+        
+spring:
+# Postgres
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/demo
+    username: pkuzmin
+    password: 12345
+    hikari:
+      connection-test-query:
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
+    show-sql: true
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+      naming:
+        #implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true # Для PostgreSQL установить в true, для MSSQL, Oracle в false
+        temp:
+          use_jdbc_metadata_defaults: false
+        jdbc:
+          time_zone: UTC
+          lob:
+            non_contextual_creation: true
+
+# Oracle
+#  datasource:
+#    driverClassName: oracle.jdbc.OracleDriver
+#    url: jdbc:oracle:thin:@aml2devops:1521:tstdf
+#    username: TEMPLATE
+#    password: TEMPLATE
+#    hikari:
+#      connection-test-query:
+#  jpa:
+#    database-platform: org.hibernate.dialect.Oracle10gDialect
+#    show-sql: true
+#    generate-ddl: false
+#    hibernate:
+#      ddl-auto: none
+#      naming: 
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#    properties:
+#      hibernate:
+#        globally_quoted_identifiers: false # Для PostgreSQL установить в true, для MSSQL, Oracle в false
+#        jdbc:
+#          time_zone: UTC
+#          lob:
+#            non_contextual_creation: true
+
+# h2
+#  datasource:
+#    driverClassName: ${DB_DRIVER:org.h2.Driver}
+#    url: ${DB_URL:jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1}
+#    username: ${DB_LOGIN:sa}
+#    password: ${DB_PASSWORD:}
+#  jpa:
+#    database-platform: ${JPA_DIALECT:org.hibernate.dialect.H2Dialect}
+#    generate-ddl: ${GENERATE_DDL:true}
+#    hibernate:
+#      naming: 
+#        physical-strategy: ${JPA_STRATEGY:ru.diasoft.micro.lib.config.H2PhysicalNamingStrategy}
+# Generate Events Publisher or Subsriber
+  kafka:
+    bootstrap-servers: localhost:9092
+  cloud:
+    stream:
+      binders:
+        binderName:
+          type: kafka
+        bindings:
+          smsVerificationCreatedPublish:
+            destination: sms-verification-created
+          smsVerificationDeliveredSubscribe:
+            destination: sms-verification-delivered
+            group: demo
+#    admin:
+#      properties:
+#        request.timeout.ms: ${KAFKA_REQUEST_TIMEOUT:5000}
+dstrace:
+  enabled: false
+#
+logging:
+  level:
+    ru.diasoft: DEBUG
+eureka:
+  client:
+    enabled: false
+    fetch-registry: false
+    register-with-eureka: false
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+
