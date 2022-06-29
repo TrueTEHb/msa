@@ -12,10 +12,10 @@ import java.util.Map;
 @RequestMapping("greeting")
 public class GreetingController {
 
-    private final List<Map<String, String>> greetings = new ArrayList<>() {{
-        add(new HashMap<>(){{put("id", "1"); put("content","First message");}});
-        add(new HashMap<>(){{put("id", "2"); put("content","Second message");}});
-        add(new HashMap<>(){{put("id", "3"); put("content","Third message");}});
+    private final List<Map<String, String>> greetings = new ArrayList() {{
+        add(new HashMap(){{put("id", "1"); put("content","First message");}});
+        add(new HashMap(){{put("id", "2"); put("content","Second message");}});
+        add(new HashMap(){{put("id", "3"); put("content","Third message");}});
     }};
     private long id = 4;
 
@@ -30,7 +30,7 @@ public class GreetingController {
     @GetMapping("{id}")
     public Map<String, String> get(@PathVariable String id) {
         return greetings.stream()
-                .filter(greeting -> greeting.get(id).equals(id))
+                .filter(greeting -> greeting.get("id").equals(id))
                 .findFirst()
                 .orElseThrow(NotFoundException::new);
     }
