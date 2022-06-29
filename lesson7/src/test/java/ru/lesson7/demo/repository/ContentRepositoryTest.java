@@ -46,7 +46,7 @@ class ContentRepositoryTest {
     @Test
     void crete() {
         Greeting greeting = new Greeting(3L, "Third message");
-        assertThat(repository.save(greeting)).isEqualTo(repository.findById(greeting.getId()).orElseThrow());
+        assertThat(repository.save(greeting)).isEqualTo(repository.findById(greeting.getId()).orElseThrow(NotFoundException::new));
     }
 
     @Test

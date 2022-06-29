@@ -31,9 +31,6 @@ class GreetingControllerTest {
     @Autowired
     private MockMvc mvc;
 
-    @Autowired
-    private GreetingServiceImpl service;
-
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
